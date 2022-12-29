@@ -3,28 +3,25 @@ SIX diffenret Classifiers for six sample dataset
 
 
 Code Implementation 
+---
 The program is object-oriented using python 3.7, and we also used the scikit-learn library [1] (0.23.0 version) to implement machine learning methods. The Dataset object contains a list of tuples to store names of the datasets as well as the data as a Pandas data frame (1.1.4 version). By iterating through the Dataset object, we can create another object named “ML-Methods” to perform the desired task on each dataset. In the first step, we used 80% of the data for training and 20% for testing. Moreover, we applied a min-max scaler on datasets to simplify the training procedure. ML-Methods object consists of a list of models as tuples, where each tuple stores one specific machine learning model and its associated name. Thus, by iterating through the list of models, we can apply every method to each dataset while storing the informative data throughout the procedure. We used StratifiedKFold to perform 10-fold cross-validation and report the mean accuracy of all the performances and other desired metrics. Finally, we utilized matplotlib [2](3.3.3 version) to plot the accuracy of each method on each dataset using the test dataset. Furthermore, the decision boundary for each method is also shown in separate plots. Finally, the source code, including all the generated plots are available in a GitHub repository (Link to the repository).
 Accuracy measure for each classifier
 
 Classifier	Circles0.3	HalfKernel	moons1	spiral1	twogaussians33	twogaussians42
-QDA	99	93	92	77	99	95
-LDA	30	67	92	77	99	92
-KNN	100	100	100	99	99	94
-GNB	99	94	92	75	99	89
-BNB	48	48	49	47	51	47
-MNB	48	69	90	64	99	89
-Table 1. Accuracy measure for each classifier4
+![alt text](./readme%20images/table%201.png)
 Discussions and comparisons
 In this Program, we implemented four different machine learning models which are going to be discussed in what follows.
 Linear discriminant analysis (LDA)
 Linear Discriminant analysis tries to reduce dimension to 1D from 2D in case of binary classification features before classifying them. By doing so, it also makes sure that when data points are projected on 1D line, the mean of individual class remains far as possible and scatter or variance between data points of each sample stays minimize.
-      
 
-Figure 1. LDA decision boundaries for different datasets.
+
+![alt text](./readme%20images/figure%201.png)
+
 	When trying to use this technique on circles0.3 it made classification more difficult, and model was producing poor results. This is because there would be lots of samples overlapping each other when we project this on 1D line. Similarly, the points pattern of half kernel is somewhat similar to circles0.3. So, by applying the same logic we can guess that model would not be worthy to use in half kernel dataset. 
 	Followed by spiral1 with a good accuracy score of 0.77. Observing the sample plot of twogaussians33 and twogaussians42 dataset we can see that LDA would easily find the best line to separate the clusters from each other with maximizing distance of mean points. So, both models gave the best performance while testing with test sets. 
 	At last, while using LDA on moons it gave 0.92 testing accuracy. This is because some points having opposite class where overlapping when dimensions were reduced but most of remains separated. 
 Quadratic Discriminant Analysis (QDA)
+---
 This method is a variant of LDA, which seeks non-linear separation between various classes. Its initial assumption is that the data points have a Gaussian distribution. Despite the LDA that considered each class having a shared covariance matrix, QDA computes a covariance matrix for each class individually. Thus, when the distribution is Gaussian and the assumption of the shared covariance matrix between classes is inaccurate, QDA classifies the points with considerable accuracy. For instance, as it shows in Table 1, QDA achieves high accuracy on twogaussians33 (99%) and circles0.3 (99%) where overlapping data points are not noticeable. Furthermore, QDA performs acceptably on twoguassian42 (95%) and halfkernel (93%) datasets where some overlapping data points existed. However, covariance matrices will highly intersect when the distribution is not gaussian, and data points have overlapping variances on the x and y axes. Therefore, an appropriate curve cannot be found to separate the two classes ideally. As shown in Figure 2, the decision boundaries of QDA do not correctly separate the classes in spiral1(77%) and moon1 (92%) datasets and lead to inaccurate classification.
       
 
